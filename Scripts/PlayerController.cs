@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private float moveInput;
     private bool isGrounded;
 
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); 
         
+        if (anim != null)
+            anim.SetBool("isJumping", !isGrounded);
     }
 
     void FixedUpdate()
